@@ -75,7 +75,7 @@ class SignupIn(BaseModel):
 # ---- routes ----
 @app.get("/api/health")
 def health():
-    return {"ok": True, "service": "FurniLoop API"}
+    return {"status": "ok"}
 
 
 @app.post("/api/auth/signup")

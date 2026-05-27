@@ -39,3 +39,10 @@ pnpm-debug.log*
 
 # vercel
 .vercel
+
+# course materials & local coaching notes (not app code)
+*.pdf
+Learning material/
+AS3_Guidance.md
+Assignment_3_Guide.md
+.Rhistory
