@@ -16,7 +16,7 @@ SUPABASE_URL = os.environ["SUPABASE_URL"]
 SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
 sb: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
-# ── find an owner ──────────────────────────────────────────────
+# -- find an owner -------------------------------------------------
 resp = sb.auth.admin.list_users()
 users = resp if isinstance(resp, list) else getattr(resp, "users", None) or resp
 
@@ -27,7 +27,7 @@ if not users:
 owner_id = users[0].id
 print(f"Using owner  : {users[0].email}")
 
-# ── demo items (12) ───────────────────────────────────────────
+# -- demo items (12) -----------------------------------------------
 ITEMS = [
     {
         "name": "IKEA Billy Bookshelf",
@@ -47,7 +47,7 @@ ITEMS = [
         "pickup_window": "Anytime Saturday",
         "item_size": "Medium",
         "still_available": True,
-        "remarks": "Solid hardwood, 1960s. Some water rings on top — great restoration project.",
+        "remarks": "Solid hardwood, 1960s. Some water rings on top - great restoration project.",
         "lat": -37.7995,
         "lng": 144.9778,
     },
@@ -55,7 +55,7 @@ ITEMS = [
         "name": "Dining Chairs (Set of 4)",
         "condition": "Good",
         "suburb": "Brunswick",
-        "pickup_window": "Mon‑Fri 9am‑3pm",
+        "pickup_window": "Mon-Fri 9am-3pm",
         "item_size": "Medium",
         "still_available": True,
         "remarks": "Scandi-style light oak, barely used. Cushions included.",
@@ -102,7 +102,7 @@ ITEMS = [
         "pickup_window": "Anytime weekend",
         "item_size": "Large",
         "still_available": True,
-        "remarks": "Two-door, cedar-lined. 180×90×55 cm. Doors need slight realignment.",
+        "remarks": "Two-door, cedar-lined. 180x90x55 cm. Doors need slight realignment.",
         "lat": -37.8678,
         "lng": 144.9809,
     },
@@ -110,7 +110,7 @@ ITEMS = [
         "name": "Outdoor Bench Seat",
         "condition": "Fair",
         "suburb": "Footscray",
-        "pickup_window": "Flexible — message to arrange",
+        "pickup_window": "Flexible - message to arrange",
         "item_size": "Medium",
         "still_available": True,
         "remarks": "Treated pine, 1.5m long. Weathered but solid. Perfect for a front porch.",
@@ -135,7 +135,7 @@ ITEMS = [
         "pickup_window": "After 4pm weekdays",
         "item_size": "Medium",
         "still_available": True,
-        "remarks": "Emerald green, brass legs. Immaculate — moving overseas, must go.",
+        "remarks": "Emerald green, brass legs. Immaculate - moving overseas, must go.",
         "lat": -37.8508,
         "lng": 144.9908,
     },
@@ -154,16 +154,16 @@ ITEMS = [
         "name": "Kids Study Desk",
         "condition": "Good",
         "suburb": "Docklands",
-        "pickup_window": "Weekends 10am‑2pm",
+        "pickup_window": "Weekends 10am-2pm",
         "item_size": "Small",
         "still_available": True,
-        "remarks": "White with pastel-blue drawer. 100×50 cm. Barely used.",
+        "remarks": "White with pastel-blue drawer. 100x50 cm. Barely used.",
         "lat": -37.8149,
         "lng": 144.9469,
     },
 ]
 
-# ── insert ─────────────────────────────────────────────────────
+# -- insert -------------------------------------------------------
 inserted = 0
 for item in ITEMS:
     row = dict(item)
@@ -171,6 +171,6 @@ for item in ITEMS:
     result = sb.table("items").insert(row).execute()
     inserted += len(result.data)
     summary = result.data[0]
-    print(f"  ✓ {summary['name']} | {summary['condition']} | {summary['suburb']}")
+    print(f"  [OK] {summary['name']} | {summary['condition']} | {summary['suburb']}")
 
 print(f"\nInserted {inserted} items into public.items.")
