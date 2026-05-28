@@ -1,4 +1,4 @@
-import { supabase, API_URL } from './supabase'
+import { supabase, API_BASE_URL } from './supabase'
 
 async function authHeader(): Promise<Record<string, string>> {
   const { data: { session } } = await supabase.auth.getSession()
@@ -25,15 +25,15 @@ export interface ApiItem {
 
 export async function listItems(suburb?: string): Promise<ApiItem[]> {
   const url = suburb
-    ? `${API_URL}/api/items?suburb=${encodeURIComponent(suburb)}`
-    : `${API_URL}/api/items`
+    ? `${API_BASE_URL}/items?suburb=${encodeURIComponent(suburb)}`
+    : `${API_BASE_URL}/items`
   const r = await fetch(url)
   if (!r.ok) throw new Error(`listItems failed: ${r.status}`)
   return r.json()
 }
 
 export async function createItem(payload: Partial<ApiItem>): Promise<ApiItem> {
-  const r = await fetch(`${API_URL}/api/items`, {
+  const r = await fetch(`${API_BASE_URL}/items`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
     body: JSON.stringify(payload),
@@ -43,7 +43,7 @@ export async function createItem(payload: Partial<ApiItem>): Promise<ApiItem> {
 }
 
 export async function claimItem(id: string): Promise<ApiItem> {
-  const r = await fetch(`${API_URL}/api/items/${id}/claim`, {
+  const r = await fetch(`${API_BASE_URL}/items/${id}/claim`, {
     method: 'POST',
     headers: { ...(await authHeader()) },
   })
@@ -52,7 +52,7 @@ export async function claimItem(id: string): Promise<ApiItem> {
 }
 
 export async function reportStatus(id: string, status: string) {
-  const r = await fetch(`${API_URL}/api/items/${id}/report`, {
+  const r = await fetch(`${API_BASE_URL}/items/${id}/report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
     body: JSON.stringify({ status }),
@@ -62,7 +62,7 @@ export async function reportStatus(id: string, status: string) {
 }
 
 export async function upsertProfile(payload: { full_name?: string; suburb?: string; consent_given?: boolean }) {
-  const r = await fetch(`${API_URL}/api/profile`, {
+  const r = await fetch(`${API_BASE_URL}/profile`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
     body: JSON.stringify(payload),
@@ -77,7 +77,7 @@ export async function adminSignup(payload: {
   full_name?: string
   consent_given?: boolean
 }) {
-  const r = await fetch(`${API_URL}/api/auth/signup`, {
+  const r = await fetch(`${API_BASE_URL}/auth/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

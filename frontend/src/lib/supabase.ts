@@ -10,4 +10,4 @@ if (!url || !anonKey) {
 
 export const supabase = createClient(url, anonKey)
 
-export const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8001'
+export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:8001/api'
