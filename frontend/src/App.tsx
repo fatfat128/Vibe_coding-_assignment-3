@@ -17,7 +17,7 @@ function AppContent() {
   const [authLoading, setAuthLoading] = useState(true);
 
   const [user, setUser] = useState({ email: '', password: '' });
-  const [registerUser, setRegisterUser] = useState({ name: '', email: '', password: '' });
+  const [, setRegisterUser] = useState({ name: '', email: '', password: '' });
   const [userRole, setUserRole] = useState<'give' | 'find' | null>(null);
 
   const [item, setItem] = useState({

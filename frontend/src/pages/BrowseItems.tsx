@@ -61,7 +61,6 @@ const BrowseItems: React.FC<BrowseItemsProps> = ({ onClaimItem }) => {
   };
 
   const handleStatusReport = async (
-    index: number,
     itemId: string,
     status: string,
     icon: string,
@@ -217,7 +216,7 @@ const BrowseItems: React.FC<BrowseItemsProps> = ({ onClaimItem }) => {
                       communityStatus={status}
                       isReportPanelOpen={openReportIndex === index}
                       onToggleReportPanel={() => toggleReportPanel(index)}
-                      onReportStatus={(s, ic, c) => handleStatusReport(index, it.id, s, ic, c)}
+                      onReportStatus={(s, ic, c) => handleStatusReport(it.id, s, ic, c)}
                     />
                   </div>
                 );
